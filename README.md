@@ -1,6 +1,6 @@
 # htmx
 
-This is repository will be used as testing grounds for htmx. Apps will be running in docker.
+This is repository will be used as testing grounds for htmx. 
 
 ## Documentation
 
