@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>htmx Todo-List</title>
+    <script src="https://unpkg.com/htmx.org@1.9.5" integrity="sha384-xcuj3WpfgjlKF+FXhSQFQ0ZNr39ln+hwjN3npfM9VBnUskLolQAcN80McRIVOPuO" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+<div>
+    <form hx-post="/tasks" hx-trigger="submit" hx-swap="outerHTML" hx-target="#taskList">
+        <input type="text" name="task" placeholder="Add new task">
+        <button type="submit">Add</button>
+    </form>
+    <div id="taskList" hx-get="/tasks" hx-trigger="load">
+        <!-- task should be loaded here -->
+    </div>
+</div>
+
+<script>
+    // On page load, fetch tasks
+    window.addEventListener('load', async () => {
+        let response = await fetch('/tasks');
+        let tasks = await response.json();
+        let taskListDiv = document.getElementById('taskList');
+        
+        tasks.forEach(task => {
+            let div = document.createElement('div');
+            div.textContent = task;
+            taskListDiv.appendChild(div);
+        });
+    });
+</script>
+
+</body>
+</html>
